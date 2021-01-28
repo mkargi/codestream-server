@@ -12,12 +12,17 @@
 // -    minimal (default): onprem template that includes ssl and outbound email
 // -    quickstart:        onprem template without ssl or email
 // -    local:             local development template (codestream sandbox)
-// -    open:              open core development (new database default)
+// -    open-development:  open core development (new database default)
+// -    onprem-slh-quickstart:  default onprem quickstart for Single Linux Host
 
 {
 	"adminServer": {
 		"defaultEnv": {},
-		"open": {
+		"onprem-slh-quickstart": {
+			"port": 8080,
+			"securePort": 8443
+		},
+		"open-development": {
 			"port": 12002,
 			"securePort": 12003
 		}
@@ -48,7 +53,22 @@
 			"publicApiUrl": "http://localhost.codestream.us:12079",
 			"showConfig": true
 		},
-		"open": {
+		"onprem-slh-quickstart": {
+			"authOrigin": null,
+			"callbackEnvironment": null,
+			"disablePhoneHome": false,
+			"dontWantAWS": true,
+			"ignoreHttps": true,
+			"logger": {
+				"directory": "${CS_API_LOGS}"
+			},
+			"marketingSiteUrl": "https://www.codestream.com",
+			"phoneHomeUrl": "https://phone-home.codestream.com",
+			"port": 80,
+			"publicApiUrl": "http://{{FQHN}}",
+			"tmpDirectory": "${CS_API_TMP}"
+		},
+		"open-development": {
 			"confirmationNotRequired": true,
 			"disablePhoneHome": true,
 			"dontWantAWS": true,
@@ -101,7 +121,7 @@
 				},
 				"showConfig": true
 			},
-			"open": {
+			"open-development": {
 				"host": "localhost",
 				"ignoreHttps": true,
 				"port": 12004,
@@ -137,7 +157,7 @@
 		"local": {
 			"suppressEmails": true
 		},
-		"open": {
+		"open-development": {
 			"emailTo": null,
 			"replyToDomain": null,
 			"senderEmail": null,
@@ -154,7 +174,7 @@
 	"emailDeliveryService": {
 		"NodeMailer": {
 			"defaultEnv": {},
-			"open": {
+			"open-development": {
 				"disabled": true
 			}
 		}
@@ -182,7 +202,7 @@
 			"local": {
 				"host": "localhost.codestream.us"
 			},
-			"open": {
+			"open-development": {
 				"host": "localhost"
 			}
 		}
@@ -196,7 +216,7 @@
 			"installationId": "00000000-0000-0000-0000-000000000000",
 			"runTimeEnvironment": "onprem"
 		},
-		"open": {
+		"open-development": {
 			"installationId": null,
 			"runTimeEnvironment": "local"
 		}
@@ -213,7 +233,7 @@
 		"local": {
 			"_loadSecretsFile": "codestream/dev-secrets.cfg"
 		},
-		"open": {
+		"open-development": {
 			"auth": "secretAuth",
 			"confirmationCheat": "secretConfirmationCheat",
 			"cookie": "secretCookie",
@@ -235,7 +255,7 @@
 			"keyfile": null,
 			"requireStrictSSL": false
 		},
-		"open": {
+		"open-development": {
 			"cafile": null,
 			"certfile": null,
 			"keyfile": null,
@@ -256,7 +276,7 @@
 			"local": {
 				"url": "mongodb://localhost.codestream.us/codestream"
 			},
-			"open": {
+			"open-development": {
 				"url": "mongodb://localhost/codestream"
 			}
 		}
@@ -266,7 +286,7 @@
 			"defaultEnv": {
 				"_loadSecretsFile": "segment/prod-api.cfg"
 			},
-			"open": {}
+			"open-development": {}
 		}
 	}
 }

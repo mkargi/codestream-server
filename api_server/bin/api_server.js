@@ -59,7 +59,7 @@ const MongoCollections = Object.keys(DataCollections).concat([
 		// set option to create a new config using the supplied default in the event no configs exist (empty database)
 		ApiConfig.loadDefaultConfigIfNoneFrom(
 			process.env.CS_API_DEFAULT_CFG_FILE ||
-				process.env.CSSVC_BACKEND_ROOT + '/api_server/etc/configs/default.json',
+				process.env.CSSVC_BACKEND_ROOT + '/api_server/etc/configs/open-development.json',
 			// generate installation id for first time start-up
 			(cfg) => {
 				if (!cfg.sharedGeneral.installationId) cfg.sharedGeneral.installationId = UUID();
