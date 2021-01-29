@@ -8,7 +8,10 @@
 // const hjson = require('hjson');
 const util = require('util');
 const printf = require('printf');
+const Fs = require('fs');
+const Url = require('url');
 const Commander = require('commander');
+const { config } = require('process');
 const StructuredCfgFactory = require(__dirname + '/../lib/structured_config.js');
 const StringifySortReplacer = require(__dirname + '/../../server_utils/stringify_sort_replacer');
 
@@ -29,6 +32,8 @@ function examples() {
 Commander
 	.option('-m, --mongo-url <mongoUrl>', 'mongo url (required)')
 	.option('-l, --add-cfg-file <addCfgFile>', 'add this config file into mongo')
+	.option('--admin-port', 'set this admin port when loading via --add-cfg-file')
+	.option('--import-keys', 'import TLS related keys and certs into the cfg when loading via --add-cfg-file')
 	.option('-d, --desc <>', 'config description')
 	.option('-c, --cfg-collection-name <cfgCollectionName>', 'configuration collection name (def = structuredConfiguration)')
 	.option('-r, --report-cfg', 'report configuration summary')
@@ -53,6 +58,20 @@ const CfgData = StructuredCfgFactory.create({
 	mongoUrl: Commander.mongoUrl || process.env.CSSVC_CFG_URL
 });
 
+const importSslKeys = (cfg) => {
+	if (!cfg.ssl) return;
+	const cert = {};
+	if (cfg.ssl.cafile) cert.caChain = Fs.readFileSync(cfg.ssl.cafile);
+	if (cfg.ssl.certfile) cert.cert = Fs.readFileSync(cfg.ssl.certfile);
+	if (cfg.ssl.keyfile) cert.key = Fs.readFileSync(cfg.ssl.keyfile);
+	if (Object.keys(cert).length) {
+		cert.targetName = Url.parse(cfg.apiServer.publicApiUrl).host;
+		cfg.sslCertificates = {};
+		cfg.sslCertificates.default = cert;
+		console.log(`adding certificate for ${cert.targetName} as default`);
+	}
+};
+
 (async function() {
 	let exitCode = 0;
 	await CfgData.initialize({connectOnly: true});
@@ -60,6 +79,8 @@ const CfgData = StructuredCfgFactory.create({
 	if (Commander.addCfgFile) {
 		const CfgFile = StructuredCfgFactory.create({ configFile: Commander.addCfgFile });
 		const configToLoad = await CfgFile.loadConfig();
+		if (Commander.importKeys) importSslKeys(configToLoad);
+		if (Commander.adminPort && configToLoad.adminServer) configToLoad.adminServer.port = Commander.adminPort
 		const dataHeader = await CfgData.addNewConfigToMongo(
 			// hjson.parse(fs.readFileSync(Commander.addCfgFile, 'utf8')),
 			configToLoad,

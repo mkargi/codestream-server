@@ -23,7 +23,8 @@ ADD api_server/package-lock.json /opt/api/codestream-server/api_server/package-l
 WORKDIR /opt/api/codestream-server/api_server
 RUN npm install --no-save
 
-EXPOSE 443
+EXPOSE 80/tcp
+EXPOSE 443/tcp
 
 ENV CSSVC_BACKEND_ROOT=/opt/api/codestream-server
 ENV CSSVC_CFG_FILE=/opt/config/codestream-services-config.json
