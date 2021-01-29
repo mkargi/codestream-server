@@ -48,17 +48,17 @@
 		"mockMode": false,
 		"phoneHomeUrl": "https://phone-home.codestream.com",
 		"port": 80,
-		"publicApiUrl": "http://{{FQHN}}",
+		"publicApiUrl": null,
 		"securePort": 12078,
 		"sessionAwayTimeout": 600000,
-		"showConfig": false,
+		"showConfig": true,
 		"signupTokenExpiration": 600000,
 		"tmpDirectory": "${CS_API_TMP}"
 	},
 	"broadcastEngine": {
 		"codestreamBroadcaster": {
 			"altApiHost": null,
-			"host": "{{FQHN}}",
+			"host": null,
 			"ignoreHttps": false,
 			"logger": {
 				"consoleOk": true,
@@ -67,8 +67,8 @@
 			},
 			"port": 12443,
 			"secrets": {
-				"api": "{{SECRET_BROADCAST_API}}",
-				"auth": "{{SECRET_BROADCAST_AUTH}}"
+				"api": null,
+				"auth": null
 			},
 			"securePort": 12075,
 			"showConfig": false
@@ -77,14 +77,14 @@
 	"email": {
 		"emailTo": null,
 		"notificationInterval": 300000,
-		"replyToDomain": "{{FQHN}}",
-		"senderEmail": "{{SENDER_EMAIL}}",
-		"supportEmail": "{{SUPPORT_EMAIL}}",
+		"replyToDomain": null,
+		"senderEmail": null,
+		"supportEmail": null,
 		"suppressEmails": false
 	},
 	"emailDeliveryService": {
 		"NodeMailer": {
-			"disabled": false,
+			"disabled": true,
 			"host": null,
 			"password": null,
 			"port": 587,
@@ -122,7 +122,7 @@
 	},
 	"queuingEngine": {
 		"rabbitmq": {
-			"host": "{{FQHN}}",
+			"host": "localhost",
 			"outboundEmailQueueName": "outboundEmail",
 			"password": "stream",
 			"port": 5672,
@@ -130,26 +130,26 @@
 		}
 	},
 	"sharedGeneral": {
-		"installationId": "{{INSTALLATION_UUID}}",
+		"installationId": null,
 		"runTimeEnvironment": "onprem"
 	},
 	"sharedSecrets": {
-		"auth": "{{SECRET_AUTH}}",
-		"confirmationCheat": "{{SECRET_CONFIRMATION_CHEAT}}",
-		"cookie": "{{SECRET_COOKIE}}",
-		"mail": "{{SECRET_MAIL}}",
-		"subscriptionCheat": "{{SECRET_SUBSCRIPTION_CHEAT}}",
+		"auth": null,
+		"confirmationCheat": null,
+		"cookie": null,
+		"mail": null,
+		"subscriptionCheat": null,
 		"telemetry": "84$gTe^._qHm,#D"
 	},
 	"ssl": {
-		"cafile": "/opt/config/{{SSL_CA_FILE}}",
-		"certfile": "/opt/config/{{SSL_CERT_FILE}}",
-		"keyfile": "/opt/config/{{SSL_KEY_FILE}}",
+		"cafile": null,
+		"certfile": null,
+		"keyfile": null,
 		"requireStrictSSL": false
 	},
 	"storage": {
 		"mongo": {
-			"url": "mongodb://{{FQHN}}/codestream"
+			"url": "mongodb://localhost/codestream"
 		}
 	},
 	"telemetry": {
