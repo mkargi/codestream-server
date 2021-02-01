@@ -319,7 +319,9 @@ class StructuredConfigBase {
 		for (let prop of Object.keys(data)) {
 			// this.logger.log('prop', prop);
 			let schemaProp = blockKey ? blockKey : prop;
-			// this.logger.log('schemaProp =', schemaProp);
+			// if (!(schemaProp in schema)) {
+			// 	this.logger.log(`bad schema property ${schemaProp}`);
+			// }
 			if (schema[schemaProp].hasOwnProperty('desc')) {
 				// this.logger.log(`leaf node at prop ${prop} -> ${sectionData[prop]}`);
 				sectionData[prop] = this._getConfigValue(prop, schema, data);

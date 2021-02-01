@@ -168,13 +168,13 @@ class systemStatus {
 				// console.log(this.watcherStatus);
 				if (this._watcherStatusChanged(statusInfo)) {
 					// watcher status has changed since the last interval
-					this.logger.log(`watcher ${statusInfo.watcherId} status has changed - ${statusInfo.message}`, null, statusInfo);
+					this.logger.info(`watcher ${statusInfo.watcherId} status has changed - ${statusInfo.message}`, null, statusInfo);
 					this.statusHistory.unshift(statusInfo);
 					broadcast = true;
 				}
 			} else {
 				// First status report for the watcher
-				this.logger.log(`watcher ${statusInfo.watcherId} first status`, null, statusInfo);
+				this.logger.info(`watcher ${statusInfo.watcherId} first status`, null, statusInfo);
 				this.statusHistory.unshift(statusInfo);
 				broadcast = true;
 			}

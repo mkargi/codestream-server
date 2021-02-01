@@ -372,19 +372,26 @@ class StructuredConfigMongo extends StructuredConfigBase {
 							.countDocuments({ schemaVersion: configDoc.schemaVersion })) || 0
 					: result.maxRevision + 1;
 
+			// insert the new config
 			// FIXME: we've got to do something better than reindex the collection with every write
 			// write the new config and create an index
 			result = await this.db.collection(this.configCollection).insertOne(configDoc);
 			await this.db
 				.collection(this.configCollection)
 				.createIndex({ schemaVersion: 1, timeStamp: -1 }, { name: 'bySchema' });
-			return {
+			const newConfig = {
 				serialNumber: result.insertedId,
 				revision: configDoc.revision,
 				timeStamp: configDoc.timeStamp,
 				schemaVersion: configDoc.schemaVersion,
 				desc: configDoc.desc,
 			};
+
+			// optionally activate the config we just added
+			if (loadOptions.activate)
+				await this.activateMongoConfig(newConfig.serialNumber);
+			return newConfig;
+
 		} catch (error) {
 			this.logger.error(`addNewConfigToMongo() failed: ${error}`);
 			return;
