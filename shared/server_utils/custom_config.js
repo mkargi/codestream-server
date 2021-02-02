@@ -146,11 +146,11 @@ function setupSslCertificates(Cfg) {
 	}
 	// each service will use the defaul certificate, if none other is defined
 	if (defaultCertId) {
-		console.log(`default cert id = ${defaultCertId}`);
+		// console.log(`default cert id = ${defaultCertId}`);
 		if (!Cfg.apiServer.sslCertId) Cfg.apiServer.sslCertId = defaultCertId;
 		if (!Cfg.adminServer.adminServerDisabled && !Cfg.adminServer.sslCertId) {
 			Cfg.adminServer.sslCertId = defaultCertId;
-			console.log('admin server cert id gets the default');
+			// console.log('admin server cert id gets the default');
 		}
 		if (Cfg.broadcastEngine.selected == 'codestreamBroadcaster') {
 			if (!Cfg.broadcastEngine.codestreamBroadcaster.sslCertId) {
