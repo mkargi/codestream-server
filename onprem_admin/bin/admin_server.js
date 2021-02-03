@@ -22,6 +22,8 @@ import GlobalData from '../config/globalData';
 	GlobalData.AdminConfig = AdminConfig;
 	const Config = await AdminConfig.loadPreferredConfig({ wait: true });
 
+	console.log(`************ CSSVC_SIMPLE_FILE_LOGGER_DEBUG ${process.env.CSSVC_SIMPLE_FILE_LOGGER_DEBUG ? 'is' : 'is not'} defined`);
+
 	// Logger object
 	GlobalData.Logger = new SimpleFileLogger(Config.adminServer.logger);
 	await GlobalData.Logger.initialize();
