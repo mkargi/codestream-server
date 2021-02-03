@@ -269,6 +269,7 @@
 			"expirationDate": "certificate expiration date",
 			"key": "private key",
 			"privateCA": "true indicates certificate signed by private CA",
+			"requireStrictSsl": "clients seeing this cert should expect it to be valid WRT accepted public certificate authorities",
 			"selfSigned": "true indicates certificate is self-signed",
 			"targetName": "certificate's target host name"
 		}

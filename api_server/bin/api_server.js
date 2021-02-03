@@ -58,11 +58,9 @@ const MongoCollections = Object.keys(DataCollections).concat([
 		// set option so structured config will perform a schema version migration if needed upon initial load
 		ApiConfig.performMigrationUsing(customSchemaMigrationMatrix);
 		// set option to create a new config using the supplied default in the event no configs exist (empty database)
-		ApiConfig.loadDefaultConfigIfNoneFrom(
-			process.env.CS_API_DEFAULT_CFG_FILE ||
-				process.env.CSSVC_BACKEND_ROOT + '/api_server/etc/configs/open-development.json',
-			firstConfigInstallationHook
-		);
+		const initialConfigFile = process.env.CS_API_DEFAULT_CFG_FILE || process.env.CSSVC_BACKEND_ROOT + '/api_server/etc/configs/open-development.json';
+		console.log(`config initialization will use ${initialConfigFile} if no config is present`);
+		ApiConfig.loadDefaultConfigIfNoneFrom(initialConfigFile, firstConfigInstallationHook);
 	}
 
 	// changes to Config will be available globally via the /config/writeable.js module

@@ -812,16 +812,16 @@
 				"default": false,
 				"desc": "true indicates certificate signed by private CA"
 			},
+			"requireStrictSsl": {
+				"default": true,
+				"desc": "clients seeing this cert should expect it to be valid WRT accepted public certificate authorities"
+			},
 			"selfSigned": {
 				"default": false,
 				"desc": "true indicates certificate is self-signed"
 			},
 			"targetName": {
 				"desc": "certificate's target host name"
-			},
-			"requireStrictSsl": {
-				"default": true,
-				"desc": "clients seeing this cert should expect it to be valid WRT accepted public certificate authorities"
 			}
 		}
 	},

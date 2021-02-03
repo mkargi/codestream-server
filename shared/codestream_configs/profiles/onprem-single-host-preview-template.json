@@ -126,7 +126,7 @@
 				"logger": {
 					"directory": "${CS_BROADCASTER_LOGS}"
 				},
-				"port": 12443,
+				"port": 12080,
 				"secrets": {
 					"api": null,
 					"auth": null

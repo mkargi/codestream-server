@@ -51,7 +51,7 @@
 		"publicApiUrl": null,
 		"securePort": 12078,
 		"sessionAwayTimeout": 600000,
-		"showConfig": true,
+		"showConfig": false,
 		"signupTokenExpiration": 600000,
 		"tmpDirectory": "${CS_API_TMP}"
 	},
@@ -65,7 +65,7 @@
 				"debugOk": false,
 				"directory": "${CS_BROADCASTER_LOGS}"
 			},
-			"port": 12443,
+			"port": 12080,
 			"secrets": {
 				"api": null,
 				"auth": null
