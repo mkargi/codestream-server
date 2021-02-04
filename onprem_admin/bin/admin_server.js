@@ -21,6 +21,10 @@ import GlobalData from '../config/globalData';
 	// Our operational structured config object (could be a file or mongo)
 	GlobalData.AdminConfig = AdminConfig;
 	const Config = await AdminConfig.loadPreferredConfig({ wait: true });
+	if (!Config.adminServer || Config.adminServer.adminServerDisabled) {
+		console.error('admin server disabled or no config data provided');
+		process.exit(1);
+	}
 
 	// Logger object
 	GlobalData.Logger = new SimpleFileLogger(Config.adminServer.logger);

@@ -25,7 +25,7 @@ import axios from 'axios';
 import { SystemStatuses } from '../src/store/actions/status';
 import sortBy from '../src/lib/sortObjectListByProps';
 
-const WatchInterval = 30000;
+const WatchInterval = process.env.OPADM_STSTEM_STATUS_WATCH_INTERVAL ? parseInt(process.env.OPADM_STSTEM_STATUS_WATCH_INTERVAL, 10) : 30000;
 
 // maybe this should be defined in config??
 const getWatchers = (config, installation) => {
@@ -256,22 +256,31 @@ class systemStatusService extends systemStatus {
 		const now = Date.now();
 		(async () => {
 			try {
+				// console.warn(`calling ${watcher.url}`);
 				const res = await axios.get(watcher.url);
 				this.logger.debug(`fetch ${watcher.url} returned`, null, res.data);
+				// console.warn(`fetch ${watcher.url} returned`, res.data);
 				const fullName = res.data.assetInfo?.fullName ? res.data.assetInfo.fullName : 'development sandbox';
+				// console.warn(`over here ${watcherId} 1`);
 				newWatchData.status = SystemStatuses.ok;
 				newWatchData.message = `${watcher.serviceName} service: ${fullName}`;
 				newWatchData.lastCheck = now;
 				newWatchData.serviceName = watcher.serviceName;
 				newWatchData.fullName = fullName;
+				// console.warn(`over here ${watcherId} 2A`);
+				// console.warn(`this.installation.assetInfo[${watcher.serviceName}] = ${fullName}`);
 				// update the global installation object
-				this.logger.debug(`assigning assetInfo.${watcher.serviceName} = ${fullName}`)
+				this.logger.debug(`this.installation.assetInfo[${watcher.serviceName}] = ${fullName}`);
 				this.installation.assetInfo[watcher.serviceName] = fullName;
+				// console.warn(`over here ${watcherId} 2B`);
 			} catch (error) {
+				// console.warn(`CAUGHT AN ERROR: over here ${watcherId} 3 (${error})`);
+				// console.warn(this.installation);
 				newWatchData.status = SystemStatuses.attention;
 				newWatchData.message = `request of asset info failed with ${error}`;
 				newWatchData.lastCheck = now;
 			}
+			// console.warn(`over here ${watcherId} 4`);
 			this._update(newWatchData);
 		})();
 	}

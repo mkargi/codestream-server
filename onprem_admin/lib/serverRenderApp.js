@@ -101,7 +101,7 @@ async function serverRenderApp(req) {
 	// Make a store
 	const Store = StoreFactory({
 		config: req.isAuthenticated() ? AdminConfig.getNativeConfig() : {}, // active native configuration (this could be from a file)
-		installation: Installation, // installation meta data
+		installation: Object.assign({}, JSON.parse(JSON.stringify(Installation))),
 		presentation,
 		status,
 	});
