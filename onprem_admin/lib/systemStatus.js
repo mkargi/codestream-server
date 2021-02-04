@@ -265,6 +265,7 @@ class systemStatusService extends systemStatus {
 				newWatchData.serviceName = watcher.serviceName;
 				newWatchData.fullName = fullName;
 				// update the global installation object
+				this.logger.debug(`assigning assetInfo.${watcher.serviceName} = ${fullName}`)
 				this.installation.assetInfo[watcher.serviceName] = fullName;
 			} catch (error) {
 				newWatchData.status = SystemStatuses.attention;
