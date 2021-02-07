@@ -35,7 +35,6 @@ Commander
 	.option('-l, --load <cfgFile>', 'add this config file into mongo')
 	.option('--and-activate', 'use with --load if you want to activate the config being loaded')
 	.option('--admin-port <adminPort>', 'set this admin port when loading via --add-cfg-file')
-	.option('--import-keys', 'import TLS related keys and certs into the cfg when loading via --add-cfg-file')
 	.option('--first-cfg-hook', 'apply the first-time configuration setup hook used by the API')
 	.option('-d, --desc <desc>', 'config description')
 	.option('-c, --cfg-collection-name <cfgCollectionName>', 'configuration collection name (def = structuredConfiguration)')
@@ -76,27 +75,6 @@ const ConfigReport = async() => {
 	}
 }
 
-// The --import-keys option has us loading ssl credential files and storing the
-// loaded data in the config itself (at which point the references to the
-// original files are forgotten.
-const importSslKeys = (cfg) => {
-	if (!cfg.ssl) return;
-	const cert = {};
-	if (cfg.ssl.cafile) cert.caChain = Fs.readFileSync(cfg.ssl.cafile);
-	if (cfg.ssl.certfile) cert.cert = Fs.readFileSync(cfg.ssl.certfile);
-	if (cfg.ssl.keyfile) cert.key = Fs.readFileSync(cfg.ssl.keyfile);
-	if (Object.keys(cert).length) {
-		cert.targetName = Url.parse(cfg.apiServer.publicApiUrl).host;
-		cert.requireStrictSSL = cfg.ssl.requireStrictSSL;
-		cfg.sslCertificates = {};
-		cfg.sslCertificates.default = cert;
-		console.log(`adding certificate for ${cert.targetName} as default`);
-		cfg.ssl.cafile = null;
-		cfg.ssl.certfile = null;
-		cfg.ssl.keyfile = null;
-	}
-};
-
 (async function() {
 	let exitCode = 0;
 	await CfgData.initialize({connectOnly: true});
@@ -109,7 +87,6 @@ const importSslKeys = (cfg) => {
 		const CfgFile = StructuredCfgFactory.create({ configFile: Commander.load });
 		const configToLoad = await CfgFile.loadConfig();
 		if (Commander.firstCfgHook) firstConfigInstallationHook(configToLoad);
-		if (Commander.importKeys) importSslKeys(configToLoad);
 		if (Commander.adminPort && configToLoad.adminServer) configToLoad.adminServer.port = parseInt(Commander.adminPort);
 		const dataHeader = await CfgData.addNewConfigToMongo(
 			// hjson.parse(fs.readFileSync(Commander.load, 'utf8')),

@@ -11,12 +11,31 @@
 
 const UUID = require('uuid').v4;
 const RandomString = require('randomstring');
+const Fs = require('fs');
 
 function getRandomIntBetween(min, max) {
 	min = Math.ceil(min);
 	max = Math.floor(max);
 	return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
+
+const importSslKeys = (cfg) => {
+	if (!cfg.ssl) return;
+	const cert = {};
+	if (cfg.ssl.cafile) cert.caChain = Fs.readFileSync(cfg.ssl.cafile);
+	if (cfg.ssl.certfile) cert.cert = Fs.readFileSync(cfg.ssl.certfile);
+	if (cfg.ssl.keyfile) cert.key = Fs.readFileSync(cfg.ssl.keyfile);
+	if (Object.keys(cert).length) {
+		cert.targetName = Url.parse(cfg.apiServer.publicApiUrl).host;
+		cert.requireStrictSSL = cfg.ssl.requireStrictSSL;
+		cfg.sslCertificates = {};
+		cfg.sslCertificates.default = cert;
+		console.log(`adding certificate for ${cert.targetName} as default`);
+		cfg.ssl.cafile = null;
+		cfg.ssl.certfile = null;
+		cfg.ssl.keyfile = null;
+	}
+};
 
 // this hook is called when a structured configuration file is loaded into the
 // database for the very first time.
@@ -41,6 +60,9 @@ const firstConfigInstallationHook = (nativeCfg) => {
 				getRandomIntBetween(15, 30)
 			);
 	}
+
+	// if certificate files exist, import the actual certs and keys into the config
+	importSslKeys(nativeCfg);
 
 	// if this property is null, we expect the public facing hostname and ports to have
 	// been passed to this routine via environment variables.
