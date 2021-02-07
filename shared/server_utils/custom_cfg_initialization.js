@@ -12,6 +12,7 @@
 const UUID = require('uuid').v4;
 const RandomString = require('randomstring');
 const Fs = require('fs');
+const Url = require('url');
 
 function getRandomIntBetween(min, max) {
 	min = Math.ceil(min);

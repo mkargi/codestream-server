@@ -8,8 +8,8 @@
 // const hjson = require('hjson');
 const util = require('util');
 const printf = require('printf');
-const Fs = require('fs');
-const Url = require('url');
+// const Fs = require('fs');
+// const Url = require('url');
 const Commander = require('commander');
 const { config } = require('process');
 const firstConfigInstallationHook= require(__dirname + '/../../server_utils/custom_cfg_initialization');
@@ -89,7 +89,7 @@ const ConfigReport = async() => {
 		if (Commander.firstCfgHook) firstConfigInstallationHook(configToLoad);
 		if (Commander.adminPort && configToLoad.adminServer) configToLoad.adminServer.port = parseInt(Commander.adminPort);
 		const dataHeader = await CfgData.addNewConfigToMongo(
-			// hjson.parse(fs.readFileSync(Commander.load, 'utf8')),
+			// hjson.parse(Fs.readFileSync(Commander.load, 'utf8')),
 			configToLoad,
 			{
 				schemaVersion: Commander.schemaVersion,
