@@ -9,10 +9,11 @@
 
 . $CS_API_TOP/sandbox/defaults.sh
 
-if [ -n "$CS_API_DEFAULT_CFG_FILE" ]; then
+if [ -z "$CS_API_DEFAULT_CFG_FILE" ]; then
 	[ -z "$CSSVC_CONFIGURATION" ] && CSSVC_CONFIGURATION="onprem-development"
 	sandutil_get_codestream_cfg_file "$CS_API_SANDBOX" "$CSSVC_CONFIGURATION" "$CSSVC_ENV"
 	export CS_API_DEFAULT_CFG_FILE=$CSSVC_CFG_FILE
 	unset CSSVC_CFG_FILE
 	[ -z "$CS_API_DEFAULT_CFG_FILE" ] && echo "WARN: could not find a default config to use at startup. Falling back to onprem-developmen"
 fi
+return 0
