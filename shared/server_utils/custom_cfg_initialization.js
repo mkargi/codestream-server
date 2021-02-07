@@ -27,6 +27,8 @@ const importSslKeys = (cfg) => {
 	if (cfg.ssl.certfile) cert.cert = Fs.readFileSync(cfg.ssl.certfile);
 	if (cfg.ssl.keyfile) cert.key = Fs.readFileSync(cfg.ssl.keyfile);
 	if (Object.keys(cert).length) {
+		console.log('config:');
+		console.log('public api url:', cfg.apiServer.publicApiUrl);
 		cert.targetName = Url.parse(cfg.apiServer.publicApiUrl).host;
 		cert.requireStrictSSL = cfg.ssl.requireStrictSSL;
 		cfg.sslCertificates = {};
@@ -62,12 +64,10 @@ const firstConfigInstallationHook = (nativeCfg) => {
 			);
 	}
 
-	// if certificate files exist, import the actual certs and keys into the config
-	importSslKeys(nativeCfg);
-
 	// if this property is null, we expect the public facing hostname and ports to have
 	// been passed to this routine via environment variables.
 	if (!nativeCfg.apiServer.publicApiUrl) {
+		console.log('apiServer.publicApiUrl is not defined');
 		const publicHostName = process.env.CS_API_SET_PUBLIC_HOST || 'localhost';
 		const publicPort = process.env.CS_API_SET_PUBLIC_PORT
 			? parseInt(process.env.CS_API_SET_PUBLIC_PORT)
@@ -83,6 +83,9 @@ const firstConfigInstallationHook = (nativeCfg) => {
 			nativeCfg.broadcastEngine.codestreamBroadcaster.port = publicBroadcasterPort;
 		}
 	}
+
+	// if certificate files exist, import the actual certs and keys into the config
+	importSslKeys(nativeCfg);
 };
 
 module.exports = firstConfigInstallationHook;

@@ -812,7 +812,7 @@
 				"default": false,
 				"desc": "true indicates certificate signed by private CA"
 			},
-			"requireStrictSsl": {
+			"requireStrictSSL": {
 				"default": true,
 				"desc": "clients seeing this cert should expect it to be valid WRT accepted public certificate authorities"
 			},
