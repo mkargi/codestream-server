@@ -68,19 +68,32 @@ const firstConfigInstallationHook = (nativeCfg) => {
 	// been passed to this routine via environment variables.
 	if (!nativeCfg.apiServer.publicApiUrl) {
 		console.log('apiServer.publicApiUrl is not defined');
-		const publicHostName = process.env.CS_API_SET_PUBLIC_HOST || 'localhost';
 		const publicPort = process.env.CS_API_SET_PUBLIC_PORT
 			? parseInt(process.env.CS_API_SET_PUBLIC_PORT)
 			: 80;
-		const publicBroadcasterPort = process.env.CS_API_SET_PUBLIC_BROADCASTER_PORT
-			? parseInt(process.env.CS_API_SET_PUBLIC_BROADCASTER_PORT)
-			: 12080;
-		const sufx = publicPort == 80 ? '' : ':' + publicPort;
-		nativeCfg.apiServer.publicApiUrl = `http://${publicHostName}${sufx}`;
 		nativeCfg.apiServer.port = publicPort;
+
 		if ('codestreamBroadcaster' in nativeCfg.broadcastEngine) {
-			nativeCfg.broadcastEngine.codestreamBroadcaster.host = publicHostName;
-			nativeCfg.broadcastEngine.codestreamBroadcaster.port = publicBroadcasterPort;
+			nativeCfg.broadcastEngine.codestreamBroadcaster.port = process.env
+				.CS_API_SET_PUBLIC_BROADCASTER_PORT
+				? parseInt(process.env.CS_API_SET_PUBLIC_BROADCASTER_PORT)
+				: 12080;
+		}
+
+		if (process.env.CS_API_SET_PUBLIC_API_URL) {
+			nativeCfg.apiServer.publicApiUrl = process.env.CS_API_SET_PUBLIC_API_URL;
+			if ('codestreamBroadcaster' in nativeCfg.broadcastEngine) {
+				nativeCfg.broadcastEngine.codestreamBroadcaster.host = Url.parse(
+					nativeCfg.apiServer.publicApiUrl
+				).host;
+			}
+		} else {
+			const publicHostName = process.env.CS_API_SET_PUBLIC_HOST || 'localhost';
+			const sufx = publicPort == 80 ? '' : ':' + publicPort;
+			nativeCfg.apiServer.publicApiUrl = `http://${publicHostName}${sufx}`;
+			if ('codestreamBroadcaster' in nativeCfg.broadcastEngine) {
+				nativeCfg.broadcastEngine.codestreamBroadcaster.host = publicHostName;
+			}
 		}
 	}
 
