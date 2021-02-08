@@ -13,6 +13,7 @@ const UUID = require('uuid').v4;
 const RandomString = require('randomstring');
 const Fs = require('fs');
 const Url = require('url');
+const Interpolate = require('./interpolate');
 
 function getRandomIntBetween(min, max) {
 	min = Math.ceil(min);
@@ -23,13 +24,12 @@ function getRandomIntBetween(min, max) {
 const importSslKeys = (cfg) => {
 	if (!cfg.ssl) return;
 	const cert = {};
-	if (cfg.ssl.cafile) cert.caChain = Fs.readFileSync(cfg.ssl.cafile);
-	if (cfg.ssl.certfile) cert.cert = Fs.readFileSync(cfg.ssl.certfile);
-	if (cfg.ssl.keyfile) cert.key = Fs.readFileSync(cfg.ssl.keyfile);
+	if (cfg.ssl.cafile) cert.caChain = Fs.readFileSync(Interpolate(cfg.ssl.cafile));
+	if (cfg.ssl.certfile) cert.cert = Fs.readFileSync(Interpolate(cfg.ssl.certfile));
+	if (cfg.ssl.keyfile) cert.key = Fs.readFileSync(Interpolate(cfg.ssl.keyfile));
 	if (Object.keys(cert).length) {
-		console.log('config:');
-		console.log('public api url:', cfg.apiServer.publicApiUrl);
-		cert.targetName = Url.parse(cfg.apiServer.publicApiUrl).host;
+		console.log('public api url:', Interpolate(cfg.apiServer.publicApiUrl));
+		cert.targetName = Url.parse(Interpolate(cfg.apiServer.publicApiUrl)).host;
 		cert.requireStrictSSL = cfg.ssl.requireStrictSSL;
 		cfg.sslCertificates = {};
 		cfg.sslCertificates.default = cert;
