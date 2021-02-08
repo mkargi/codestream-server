@@ -24,9 +24,9 @@ function getRandomIntBetween(min, max) {
 const importSslKeys = (cfg) => {
 	if (!cfg.ssl) return;
 	const cert = {};
-	if (cfg.ssl.cafile) cert.caChain = Fs.readFileSync(Interpolate(cfg.ssl.cafile));
-	if (cfg.ssl.certfile) cert.cert = Fs.readFileSync(Interpolate(cfg.ssl.certfile));
-	if (cfg.ssl.keyfile) cert.key = Fs.readFileSync(Interpolate(cfg.ssl.keyfile));
+	if (cfg.ssl.cafile) cert.caChain = Fs.readFileSync(Interpolate(cfg.ssl.cafile), { encoding: 'utf8' });
+	if (cfg.ssl.certfile) cert.cert = Fs.readFileSync(Interpolate(cfg.ssl.certfile), { encoding: 'utf8' });
+	if (cfg.ssl.keyfile) cert.key = Fs.readFileSync(Interpolate(cfg.ssl.keyfile), { encoding: 'utf8' });
 	if (Object.keys(cert).length) {
 		console.log('public api url:', Interpolate(cfg.apiServer.publicApiUrl));
 		cert.targetName = Url.parse(Interpolate(cfg.apiServer.publicApiUrl)).host;

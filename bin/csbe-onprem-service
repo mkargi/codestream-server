@@ -9,7 +9,7 @@ function usage {
 
 [ -z "$1" ] && usage
 [ -n "$CSSVC_BACKEND_ROOT" ] && echo "onprem sandboxes cannot be loaded to run this script" && exit 1
-[ ! -f $DT_SANDBOXES/bc -o ! -f $DT_SANDBOXES/mailout -o ! -f $DT_SANDBOXES/api -o ! -f $DT_SANDBOXES/opadm ] && echo "all 4 onprem sandboxes not installed" && exit 1
+[ ! -d $DT_SANDBOXES/bc -o ! -d $DT_SANDBOXES/mailout -o ! -d $DT_SANDBOXES/api -o ! -d $DT_SANDBOXES/opadm ] && echo "all 4 onprem sandboxes not installed" && exit 1
 
 case "$1" in
 	status)
