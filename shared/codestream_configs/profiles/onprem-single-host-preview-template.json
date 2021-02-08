@@ -66,6 +66,7 @@
 			"phoneHomeUrl": "https://phone-home.codestream.com",
 			"port": 80,
 			"publicApiUrl": null,
+			"securePort": 443,
 			"tmpDirectory": "${CS_API_TMP}"
 		},
 		"open-development": {

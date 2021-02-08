@@ -62,6 +62,7 @@
 				"showConfig": false
 			},
 			"defaultEnv": {
+				"host": "${CSSVC_ENV}-api.codestream.us",
 				"logger": {},
 				"secrets": {
 					"_loadSecretsFile": "codestream/dev-bcast-secrets.cfg"

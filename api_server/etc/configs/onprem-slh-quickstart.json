@@ -49,7 +49,7 @@
 		"phoneHomeUrl": "https://phone-home.codestream.com",
 		"port": 80,
 		"publicApiUrl": null,
-		"securePort": 12078,
+		"securePort": 443,
 		"sessionAwayTimeout": 600000,
 		"showConfig": false,
 		"signupTokenExpiration": 600000,

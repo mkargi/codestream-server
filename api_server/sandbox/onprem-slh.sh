@@ -9,4 +9,7 @@
 
 . $CS_API_TOP/sandbox/defaults.sh
 
+# FIXME: these should only be set if the db is uninitialized??
 export CS_API_DEFAULT_CFG_FILE=$CS_API_TOP/etc/configs/onprem-slh-quickstart.json
+export CS_API_PORT=4080
+export CS_API_SECURE_PORT=4443
