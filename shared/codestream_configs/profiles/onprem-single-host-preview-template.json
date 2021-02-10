@@ -56,6 +56,7 @@
 		"onprem-slh-quickstart": {
 			"authOrigin": null,
 			"callbackEnvironment": null,
+			"confirmationNotRequired": true,
 			"disablePhoneHome": false,
 			"dontWantAWS": true,
 			"ignoreHttps": true,
@@ -174,7 +175,7 @@
 			"replyToDomain": null,
 			"senderEmail": null,
 			"supportEmail": null,
-			"suppressEmails": false
+			"suppressEmails": true
 		},
 		"open-development": {
 			"emailTo": null,

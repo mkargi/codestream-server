@@ -33,7 +33,7 @@
 		"callbackEnvironment": null,
 		"confirmCodeExpiration": 604800000,
 		"confirmationExpiration": 86400000,
-		"confirmationNotRequired": false,
+		"confirmationNotRequired": true,
 		"disablePhoneHome": false,
 		"dontWantAWS": true,
 		"forgotPasswordExpiration": 86400000,
@@ -80,7 +80,7 @@
 		"replyToDomain": null,
 		"senderEmail": null,
 		"supportEmail": null,
-		"suppressEmails": false
+		"suppressEmails": true
 	},
 	"emailDeliveryService": {
 		"NodeMailer": {
