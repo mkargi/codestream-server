@@ -113,7 +113,12 @@ const ConfigReport = async() => {
 	}
 	// dump a config by its serial number
 	else if (Commander.dump) {
-		const config = (Commander.dump === 'active') ? await CfgData.loadConfig() : await CfgData.getConfigBySerial(Commander.showCfg);
+		const config =
+			Commander.dump === 'active'
+				? await CfgData.loadConfig()
+				: Commander.dump == 'latest'
+				? await CfgData.getMostRecentConfig()
+				: await CfgData.getConfigBySerial(Commander.dump);
 		if (Commander.pretty) {
 			console.log(util.inspect(config, false, null, true /* enable colors */));
 		} else {

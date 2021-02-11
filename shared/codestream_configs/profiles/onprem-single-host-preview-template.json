@@ -19,10 +19,12 @@
 	"adminServer": {
 		"defaultEnv": {},
 		"onprem-slh-quickstart": {
+			"ignoreHttps": true,
 			"port": 8080,
 			"securePort": 8443
 		},
 		"open-development": {
+			"ignoreHttps": true,
 			"port": 12002,
 			"securePort": 12003
 		}

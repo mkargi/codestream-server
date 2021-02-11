@@ -18,6 +18,7 @@
 {
 	"adminServer": {
 		"adminServerDisabled": false,
+		"ignoreHttps": true,
 		"logger": {
 			"consoleOk": true,
 			"debugOk": false,
