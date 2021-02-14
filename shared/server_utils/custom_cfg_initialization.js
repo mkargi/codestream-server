@@ -68,8 +68,8 @@ const firstConfigInstallationHook = (nativeCfg) => {
 	// been passed to this routine via environment variables.
 	if (!nativeCfg.apiServer.publicApiUrl) {
 		console.log('apiServer.publicApiUrl is not defined');
-		const publicPort = process.env.CS_API_SET_PUBLIC_PORT
-			? parseInt(process.env.CS_API_SET_PUBLIC_PORT)
+		const publicPort = process.env.CS_API_SET_PORT
+			? parseInt(process.env.CS_API_SET_PORT)
 			: 80;
 		nativeCfg.apiServer.port = publicPort;
 

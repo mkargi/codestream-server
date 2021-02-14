@@ -12,5 +12,5 @@
 # FIXME: these should only be set if the db is uninitialized??
 export CS_API_DEFAULT_CFG_FILE=$CS_API_TOP/etc/configs/onprem-slh-quickstart.json
 # expect port 80 to be redirected to 4080
-[ -z "$CS_API_SET_PUBLIC_API_URL" ] && export CS_API_SET_PUBLIC_API_URL="http://`hostname`"
+export CS_API_SET_PUBLIC_API_URL="http://`ec2-metadata --local-ipv4|awk '{print $2}'`"
 export CS_API_SET_PORT=4080

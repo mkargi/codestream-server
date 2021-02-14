@@ -1,5 +1,5 @@
 
-# use for spin-up onprem environments (non-local development)
+# use for spin-up onprem environments (non-local development using sandboxes)
 
 # config will be loaded into mongodb on first run
 
