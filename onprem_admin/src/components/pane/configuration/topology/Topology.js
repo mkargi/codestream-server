@@ -54,7 +54,7 @@ const clientFacingServicesFieldSet = {
 				updateActionPayload: {
 					sslPropName: 'apiPublicPort',
 				},
-				mutedText: 'Port clients connect to.',
+				mutedText: 'Port clients connect to if not apiPort',
 				validation: {
 					isRequired: false,
 					minValue: 0,
@@ -372,6 +372,12 @@ const mapState = (state) => {
 			},
 		},
 	};
+	if (!clientFacingServices.formData.values.publicApiPort) {
+		clientFacingServices.formData.values.publicApiPort = state.config.apiServer.ignoreHttps ? 80 : 443;
+	}
+	if (!clientFacingServices.formData.revertValues.publicApiPort) {
+		clientFacingServices.formData.revertValues.publicApiPort = state.config.apiServer.ignoreHttps ? 80 : 443;
+	}
 	console.debug('Topology(mapState)', x);
 	return x;
 };
