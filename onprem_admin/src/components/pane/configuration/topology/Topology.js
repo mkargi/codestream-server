@@ -32,7 +32,7 @@ const clientFacingServicesFieldSet = {
 					sslPropName: 'apiHost',
 				},
 				// optional
-				mutedText: 'The hostname CodeStream clients will connect to.',
+				mutedText: 'The hostname CodeStream clients will connect to',
 				// type: 'number',	// default = 'text'
 				// width: 'col-7',	// default = defaultColWidth property
 				// disabled: true,	// default = false
@@ -54,7 +54,7 @@ const clientFacingServicesFieldSet = {
 				updateActionPayload: {
 					sslPropName: 'apiPublicPort',
 				},
-				mutedText: 'Port clients connect to if not apiPort',
+				mutedText: 'Port clients connect to',
 				validation: {
 					isRequired: false,
 					minValue: 0,
@@ -372,11 +372,11 @@ const mapState = (state) => {
 			},
 		},
 	};
-	if (!clientFacingServices.formData.values.publicApiPort) {
-		clientFacingServices.formData.values.publicApiPort = state.config.apiServer.ignoreHttps ? 80 : 443;
+	if (!x.clientFacingServices.formData.values.publicApiPort) {
+		x.clientFacingServices.formData.values.publicApiPort = state.config.apiServer.ignoreHttps ? 80 : 443;
 	}
-	if (!clientFacingServices.formData.revertValues.publicApiPort) {
-		clientFacingServices.formData.revertValues.publicApiPort = state.config.apiServer.ignoreHttps ? 80 : 443;
+	if (!x.clientFacingServices.formData.revertValues.publicApiPort) {
+		x.clientFacingServices.formData.revertValues.publicApiPort = state.config.apiServer.ignoreHttps ? 80 : 443;
 	}
 	console.debug('Topology(mapState)', x);
 	return x;
