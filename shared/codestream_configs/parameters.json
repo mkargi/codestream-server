@@ -1,7 +1,7 @@
 // This defines all variables used across all services and lays out the config
 // file format.
 //
-// The default values are used for local development.
+// The default values are used for local sandbox development.
 //
 // Values / Properties for each variable are:
 //    "variable-name": {
@@ -26,6 +26,11 @@
 			"default": false,
 			"desc": "true will disable admin server and related functionality",
 			"env": "OPADM_DISABLED"
+		},
+		"internalHost": {
+			"default": "localhost",
+			"desc": "hostname to receive internal requests", // docker network, ...
+			"env": "OPADM_INTERNAL_HOST"
 		},
 		"ignoreHttps": {
 			"default": false,
@@ -67,11 +72,6 @@
 		}
 	},
 	"apiServer": {
-		"altBroadcasterHost": {
-			"default": null,
-			"desc": "alternate hostname for api -> broadcaster communication",
-			"env": "CS_API_ALT_BROADCASTER_HOST"
-		},
 		"authOrigin": {
 			"desc": "origin to use for third-party auth callbacks",
 			"env": "CS_API_AUTH_ORIGIN"
@@ -121,6 +121,11 @@
 			"desc": "set to true to respond to http instead of https",
 			"env": "CS_API_IGNORE_HTTPS"
 		},
+		"internalHost": {
+			"default": "localhost",
+			"desc": "hostname to receive internal requests",  // docker network, ...
+			"env": "CS_API_INTERNAL_HOST"
+		},
 		"logger": {
 			"consoleOk": {
 				"default": true,
@@ -164,11 +169,6 @@
 			"desc": "public url to access the API server from beyond",
 			"env": "CS_API_PUBLIC_URL"
 		},
-		"securePort": {
-			"default": 12078,
-			"desc": "Secure network port for the api service",
-			"env": "CS_API_SECURE_PORT"
-		},
 		"sessionAwayTimeout": {
 			"default": 600000,
 			"desc": "how long before we call a user 'away' from keyboard (in millisecs)",
@@ -206,6 +206,11 @@
 				"default": false,
 				"desc": "set to true to respond to http instead of https",
 				"env": "CS_BROADCASTER_IGNORE_HTTPS"
+			},
+			"internalHost": {
+				"default": "localhost",
+				"desc": "hostname to receive internal requests",  // docker network, ...
+				"env": "CS_API_INTERNAL_HOST"
 			},
 			"logger": {
 				"consoleOk": {
@@ -322,6 +327,11 @@
 			"host": {
 				"desc": "smtp mailer host",
 				"required": true
+			},
+			"internalHost": {
+				"default": "localhost",
+				"desc": "hostname to receive internal requests", // docker network, ...
+				"env": "CS_NODEMAILER_INTERNAL_HOST"
 			},
 			"password": {
 				"desc": "smtp authentication password"

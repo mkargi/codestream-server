@@ -13,7 +13,7 @@ const SimpleFileLogger = require(process.env.CSSVC_BACKEND_ROOT + '/shared/serve
 const ClusterWrapper = require(process.env.CSSVC_BACKEND_ROOT + '/shared/server_utils/cluster_wrapper');
 const StringifySortReplacer = require(process.env.CSSVC_BACKEND_ROOT + '/shared/server_utils/stringify_sort_replacer');
 const ServerClass = require(process.env.CSSVC_BACKEND_ROOT + '/api_server/lib/api_server/api_server');
-const getOnPremSupportData = require(process.env.CSSVC_BACKEND_ROOT + '/shared/server_utils/get_onprem_support_data');
+const getOnPremSupportData = require(process.env.CSSVC_BACKEND_ROOT + '/shared/server_utils/get_onprem_support_data').getOnPremSupportData;
 const customSchemaMigrationMatrix = require(process.env.CSSVC_BACKEND_ROOT + '/shared/server_utils/custom_schema_migration');
 const firstConfigInstallationHook= require(process.env.CSSVC_BACKEND_ROOT + '/shared/server_utils/custom_cfg_initialization');
 

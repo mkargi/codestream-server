@@ -47,12 +47,12 @@ const getWatchers = (config, installation) => {
 		};
 	}
 
-	// FIXME: kludge for now. Never blindly reject unauthorized
+	// we're ok with this because this is an internal call
 	const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 	// get assetInfo from API
 	watchers.apiAssetInfo = {
 		type: 'assetInfo',
-		url: `${config.apiServer.publicApiUrl}/no-auth/asset-info`,
+		url: `${config.apiServer.internalApiUrl}/no-auth/asset-info`,
 		serviceName: 'api-server',
 		httpsAgent
 	};
@@ -60,7 +60,7 @@ const getWatchers = (config, installation) => {
 		// get assetInfo from broadcaster
 		watchers.broadcastAssetInfo = {
 			type: 'assetInfo',
-			url: `${config.broadcastEngine.codestreamBroadcaster.ignoreHttps ? 'http' : 'https'}://${config.broadcastEngine.codestreamBroadcaster.host}:${config.broadcastEngine.codestreamBroadcaster.port}/no-auth/asset-info`,
+			url: `${config.broadcastEngine.codestreamBroadcaster.ignoreHttps ? 'http' : 'https'}://${config.broadcastEngine.codestreamBroadcaster.internalHost}:${config.broadcastEngine.codestreamBroadcaster.port}/no-auth/asset-info`,
 			serviceName: 'broadcaster',
 			httpsAgent
 		}
