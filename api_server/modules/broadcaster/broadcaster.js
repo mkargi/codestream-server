@@ -39,7 +39,7 @@ class Broadcaster extends APIServerModule {
 
 	async connectToSocketCluster () {
 		const broadcasterConfig = this.api.config.broadcastEngine.codestreamBroadcaster;
-		const host = broadcasterConfig.host;
+		const host = broadcasterConfig.internalHost;
 		const port = broadcasterConfig.port;
 		this.api.log(`Connecting to SocketCluster at ${host}:${port}...`);
 		const config = Object.assign({},
