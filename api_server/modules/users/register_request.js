@@ -463,7 +463,7 @@ class RegisterRequest extends RestfulRequest {
 			},
 			errors: [
 				'parameterRequired',
-				'usernameNotUnique',
+				//'usernameNotUnique',
 				'exists',
 				'validation',
 				'inviteMismatch',
