@@ -19,17 +19,16 @@
 	"adminServer": {
 		"adminServerDisabled": false,
 		"ignoreHttps": true,
+		"internalHost": "localhost",
 		"logger": {
 			"consoleOk": true,
 			"debugOk": false,
 			"directory": "${OPADM_LOGS}"
 		},
 		"port": 8080,
-		"securePort": 8443,
 		"showConfig": false
 	},
 	"apiServer": {
-		"altBroadcasterHost": null,
 		"authOrigin": null,
 		"callbackEnvironment": null,
 		"confirmCodeExpiration": 604800000,
@@ -40,6 +39,7 @@
 		"forgotPasswordExpiration": 86400000,
 		"helpIsAvailable": false,
 		"ignoreHttps": true,
+		"internalHost": "localhost",
 		"logger": {
 			"consoleOk": true,
 			"debugOk": false,
@@ -50,7 +50,6 @@
 		"phoneHomeUrl": "https://phone-home.codestream.com",
 		"port": 80,
 		"publicApiUrl": null,
-		"securePort": 443,
 		"sessionAwayTimeout": 600000,
 		"showConfig": false,
 		"signupTokenExpiration": 600000,
@@ -58,9 +57,9 @@
 	},
 	"broadcastEngine": {
 		"codestreamBroadcaster": {
-			"altApiHost": null,
 			"host": null,
 			"ignoreHttps": false,
+			"internalHost": "localhost",
 			"logger": {
 				"consoleOk": true,
 				"debugOk": false,
@@ -71,7 +70,6 @@
 				"api": null,
 				"auth": null
 			},
-			"securePort": 12075,
 			"showConfig": false
 		}
 	},
@@ -87,6 +85,7 @@
 		"NodeMailer": {
 			"disabled": true,
 			"host": null,
+			"internalHost": "localhost",
 			"password": null,
 			"port": 587,
 			"secure": true,

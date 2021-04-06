@@ -9,7 +9,10 @@
 	- altBroadcasterHost, securePort
 	+ internalHost, internalPort
 	broadcaster
+	- securePort
 	+ internalHost, internalPort
+	adminServer
+	- securePort
 
 ## [11.0.2] - 2021-5-18
 

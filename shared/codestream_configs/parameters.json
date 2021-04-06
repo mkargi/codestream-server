@@ -27,15 +27,15 @@
 			"desc": "true will disable admin server and related functionality",
 			"env": "OPADM_DISABLED"
 		},
-		"internalHost": {
-			"default": "localhost",
-			"desc": "hostname to receive internal requests", // docker network, ...
-			"env": "OPADM_INTERNAL_HOST"
-		},
 		"ignoreHttps": {
 			"default": false,
 			"desc": "set to true to respond to http instead of https",
 			"env": "OPADM_IGNORE_HTTPS"
+		},
+		"internalHost": {
+			"default": "localhost",
+			"desc": "hostname to receive internal requests",
+			"env": "OPADM_INTERNAL_HOST"
 		},
 		"logger": {
 			"consoleOk": {
@@ -59,11 +59,6 @@
 			"default": 12076,
 			"desc": "admin server port",
 			"env": "OPADM_PORT"
-		},
-		"securePort": {
-			"default": 12077,
-			"desc": "admin server secure port",
-			"env": "OPADM_SECURE_PORT"
 		},
 		"showConfig": {
 			"default": false,
@@ -123,7 +118,7 @@
 		},
 		"internalHost": {
 			"default": "localhost",
-			"desc": "hostname to receive internal requests",  // docker network, ...
+			"desc": "hostname to receive internal requests",
 			"env": "CS_API_INTERNAL_HOST"
 		},
 		"logger": {
@@ -193,11 +188,6 @@
 	},
 	"broadcastEngine": {
 		"codestreamBroadcaster": {
-			"altApiHost": {
-				"default": null,
-				"desc": "alternate hostname to use to make api requests",
-				"env": "CS_BROADCASTER_ALT_API_HOST"
-			},
 			"host": {
 				"default": "localhost.codestream.us",
 				"desc": "hostname of the broadcaster service (from client point-of-view)"
@@ -209,7 +199,7 @@
 			},
 			"internalHost": {
 				"default": "localhost",
-				"desc": "hostname to receive internal requests",  // docker network, ...
+				"desc": "hostname to receive internal requests",
 				"env": "CS_API_INTERNAL_HOST"
 			},
 			"logger": {
@@ -246,11 +236,6 @@
 					"env": "CSSVC_BROADCASTER_AUTH_SECRET",
 					"required": true
 				}
-			},
-			"securePort": {
-				"default": 12075,
-				"desc": "Secure network port for the broadcaster service",
-				"env": "CSSVC_BROADCASTER_SECURE_PORT"
 			},
 			"showConfig": {
 				"default": false,
@@ -330,7 +315,7 @@
 			},
 			"internalHost": {
 				"default": "localhost",
-				"desc": "hostname to receive internal requests", // docker network, ...
+				"desc": "hostname to receive internal requests",
 				"env": "CS_NODEMAILER_INTERNAL_HOST"
 			},
 			"password": {

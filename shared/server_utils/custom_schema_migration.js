@@ -71,6 +71,8 @@ const from18To19 = (nativeCfg) => {
 			nativeCfg.apiServer.internalHost = determineInternalHost(OnPremProductType, 'api');
 	}
 	if ('codestreamBroadcaster' in nativeCfg.broadcastEngine) {
+		if ('altApiHost' in nativeCfg.broadcastEngine.codestreamBroadcaster)
+			delete nativeCfg.broadcastEngine.codestreamBroadcaster.altApiHost;
 		if (!nativeCfg.broadcastEngine.codestreamBroadcasterinternalHost)
 			nativeCfg.broadcastEngine.codestreamBroadcaster.internalHost = determineInternalHost(OnPremProductType, 'broadcaster');
 	}

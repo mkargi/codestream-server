@@ -12,64 +12,64 @@
 // -    minimal (default): onprem template that includes ssl and outbound email
 // -    quickstart:        onprem template without ssl or email
 // -    local:             local development template (codestream sandbox)
-// -    open:              open core development (new database default)
+// -    open-development:  open core development (new database default)
+// -    onprem-slh-quickstart:  default onprem quickstart for Single Linux Host
 
 {
 	"adminServer": {
 		"adminServerDisabled": false,
+		"ignoreHttps": true,
+		"internalHost": "host.docker.internal",
 		"logger": {
 			"consoleOk": true,
 			"debugOk": false,
 			"directory": "${OPADM_LOGS}"
 		},
-		"port": 12002,
-		"securePort": 12003,
+		"port": 8080,
 		"showConfig": false
 	},
 	"apiServer": {
-		"altBroadcasterHost": null,
 		"authOrigin": null,
-		"callbackEnvironment": "${CS_API_CALLBACK_ENV}",
+		"callbackEnvironment": null,
 		"confirmCodeExpiration": 604800000,
 		"confirmationExpiration": 86400000,
 		"confirmationNotRequired": true,
-		"disablePhoneHome": true,
+		"disablePhoneHome": false,
 		"dontWantAWS": true,
 		"forgotPasswordExpiration": 86400000,
-		"helpIsAvailable": true,
+		"helpIsAvailable": false,
 		"ignoreHttps": true,
+		"internalHost": "host.docker.internal",
 		"logger": {
 			"consoleOk": true,
 			"debugOk": false,
 			"directory": "${CS_API_LOGS}"
 		},
-		"marketingSiteUrl": "https://teamcodestream.webflow.io",
+		"marketingSiteUrl": "https://www.codestream.com",
 		"mockMode": false,
-		"phoneHomeUrl": "http://localhost:12006",
-		"port": 12000,
-		"publicApiUrl": "http://localhost:12000",
-		"securePort": 12001,
+		"phoneHomeUrl": "https://phone-home.codestream.com",
+		"port": 80,
+		"publicApiUrl": null,
 		"sessionAwayTimeout": 600000,
 		"showConfig": true,
 		"signupTokenExpiration": 600000,
-		"tmpDirectory": "${CS_API_SANDBOX}/tmp"
+		"tmpDirectory": "${CS_API_TMP}"
 	},
 	"broadcastEngine": {
 		"codestreamBroadcaster": {
-			"altApiHost": null,
-			"host": "localhost",
-			"ignoreHttps": true,
+			"host": null,
+			"ignoreHttps": false,
+			"internalHost": "host.docker.internal",
 			"logger": {
 				"consoleOk": true,
 				"debugOk": false,
-				"directory": "${CS_BROADCASTER_SANDBOX}/log"
+				"directory": "${CS_BROADCASTER_LOGS}"
 			},
-			"port": 12004,
+			"port": 12080,
 			"secrets": {
-				"api": "broadcastApiSecret",
-				"auth": "broadcastAuthSecret"
+				"api": null,
+				"auth": null
 			},
-			"securePort": 12005,
 			"showConfig": false
 		}
 	},
@@ -85,6 +85,7 @@
 		"NodeMailer": {
 			"disabled": true,
 			"host": null,
+			"internalHost": "host.docker.internal",
 			"password": null,
 			"port": 587,
 			"secure": true,
@@ -121,7 +122,7 @@
 	},
 	"queuingEngine": {
 		"rabbitmq": {
-			"host": "localhost",
+			"host": "host.docker.internal",
 			"outboundEmailQueueName": "outboundEmail",
 			"password": "stream",
 			"port": 5672,
@@ -130,14 +131,14 @@
 	},
 	"sharedGeneral": {
 		"installationId": null,
-		"runTimeEnvironment": "local"
+		"runTimeEnvironment": "onprem"
 	},
 	"sharedSecrets": {
-		"auth": "secretAuth",
-		"confirmationCheat": "secretConfirmationCheat",
-		"cookie": "secretCookie",
-		"mail": "secretMail",
-		"subscriptionCheat": "secretSubscriptionCheat",
+		"auth": null,
+		"confirmationCheat": null,
+		"cookie": null,
+		"mail": null,
+		"subscriptionCheat": null,
 		"telemetry": "84$gTe^._qHm,#D"
 	},
 	"ssl": {
@@ -153,8 +154,8 @@
 	},
 	"telemetry": {
 		"segment": {
-			"token": null,
-			"webToken": null
+			"token": "dvZ7naazdlWY3Szcmk69E5G0VdJfijsl",
+			"webToken": "j428d2olDAhzxjKs9nKBTNEsZf6i7zDx"
 		}
 	}
 }

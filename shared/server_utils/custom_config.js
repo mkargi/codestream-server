@@ -24,7 +24,7 @@ function assembleInternalUrl(originalParsedUrl, internalHost=null) {
 	if (internalHost) parsedUrl.host = internalHost;
 	const internalPortSufx =
 		(parsedUrl.secure && parsedUrl.port !== 443) || (!parsedUrl.secure && parsedUrl.port !== 80)
-			? (internalPortSufx = `:${parsedUrl.port}`)
+			? `:${parsedUrl.port}`
 			: '';
 	const scheme = parsedUrl.secure ? 'https' : 'http';
 	const url = `${scheme}://${parsedUrl.host}${internalPortSufx}`;
@@ -242,13 +242,14 @@ module.exports = function customConfigFunc(nativeCfg) {
 
 	// mongo
 	if (!nativeCfg.storage.mongo) nativeCfg.storage.mongo = {};
+	console.log(`CSSVC_CFG_URL=${process.env.CSSVC_CFG_URL}`);
 	if (process.env.CSSVC_CFG_URL && process.env.CSSVC_CFG_URL !== nativeCfg.storage.mongo.url) {
 		console.error(
 			// TODO: this should be surfaced to the user, and/or the config
 			// should be automatically corrected.
 			`WARNING: CSSVC_CFG_URL(${process.env.CSSVC_CFG_URL} !== cfg (${nativeCfg.storage.mongo.url}))`
 		);
-		nativeCfg.storage.mongo.url = process.env.CSSVC_CFG_URL;
+		Cfg.storage.mongo.url = process.env.CSSVC_CFG_URL;
 	}
 	Object.assign(Cfg.storage.mongo, {
 		database: MongoUrlParser(nativeCfg.storage.mongo.url).database,

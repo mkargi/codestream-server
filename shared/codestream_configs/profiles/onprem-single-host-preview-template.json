@@ -20,13 +20,11 @@
 		"defaultEnv": {},
 		"onprem-slh-quickstart": {
 			"ignoreHttps": true,
-			"port": 8080,
-			"securePort": 8443
+			"port": 8080
 		},
 		"open-development": {
 			"ignoreHttps": true,
-			"port": 12002,
-			"securePort": 12003
+			"port": 12002
 		}
 	},
 	"apiServer": {
@@ -69,7 +67,6 @@
 			"phoneHomeUrl": "https://phone-home.codestream.com",
 			"port": 80,
 			"publicApiUrl": null,
-			"securePort": 443,
 			"tmpDirectory": "${CS_API_TMP}"
 		},
 		"open-development": {
@@ -82,7 +79,6 @@
 			"phoneHomeUrl": "http://localhost:12006",
 			"port": 12000,
 			"publicApiUrl": "http://localhost:12000",
-			"securePort": 12001,
 			"showConfig": true
 		},
 		"quickstart": {
@@ -144,7 +140,6 @@
 					"api": "broadcastApiSecret",
 					"auth": "broadcastAuthSecret"
 				},
-				"securePort": 12005,
 				"showConfig": false
 			},
 			"quickstart": {

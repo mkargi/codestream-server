@@ -56,11 +56,14 @@ const MongoCollections = Object.keys(DataCollections).concat([
 
 (async function() {
 	if (ApiConfig.configIsMongo()) {
-		// set option so structured config will perform a schema version migration if needed upon initial load
+		// set option so structured config will perform a schema version
+		// migration if needed upon initial load
 		ApiConfig.performMigrationUsing(customSchemaMigrationMatrix);
-		// set option to create a new config using the supplied default in the event no configs exist (empty database)
+		// set option to create a new config using the supplied default in the
+		// event no configs exist (empty database)
 		const initialConfigFile = process.env.CS_API_DEFAULT_CFG_FILE || process.env.CSSVC_BACKEND_ROOT + '/api_server/etc/configs/open-development.json';
 		console.log(`config initialization will use ${initialConfigFile} if no config is present`);
+		// this sets hooks; It doesn't actually load a config
 		ApiConfig.loadDefaultConfigIfNoneFrom(initialConfigFile, firstConfigInstallationHook);
 	}
 
