@@ -10,16 +10,15 @@
 //
 // - environments:
 // -    minimal (default): onprem template that includes ssl and outbound email
-// -    quickstart:        onprem template without ssl or email
 // -    local:             local development template (codestream sandbox)
 // -    open-development:  open core development (new database default)
-// -    onprem-slh-quickstart:  default onprem quickstart for Single Linux Host
+// -    onprem-quickstart:  default onprem quickstart for all product types
 
 {
 	"adminServer": {
 		"adminServerDisabled": false,
 		"ignoreHttps": true,
-		"internalHost": "host.docker.internal",
+		"internalHost": null,
 		"logger": {
 			"consoleOk": true,
 			"debugOk": false,
@@ -39,7 +38,7 @@
 		"forgotPasswordExpiration": 86400000,
 		"helpIsAvailable": false,
 		"ignoreHttps": true,
-		"internalHost": "host.docker.internal",
+		"internalHost": null,
 		"logger": {
 			"consoleOk": true,
 			"debugOk": false,
@@ -51,7 +50,7 @@
 		"port": 80,
 		"publicApiUrl": null,
 		"sessionAwayTimeout": 600000,
-		"showConfig": true,
+		"showConfig": false,
 		"signupTokenExpiration": 600000,
 		"tmpDirectory": "${CS_API_TMP}"
 	},
@@ -59,7 +58,7 @@
 		"codestreamBroadcaster": {
 			"host": null,
 			"ignoreHttps": false,
-			"internalHost": "host.docker.internal",
+			"internalHost": null,
 			"logger": {
 				"consoleOk": true,
 				"debugOk": false,
@@ -85,7 +84,6 @@
 		"NodeMailer": {
 			"disabled": true,
 			"host": null,
-			"internalHost": "host.docker.internal",
 			"password": null,
 			"port": 587,
 			"secure": true,
@@ -107,6 +105,7 @@
 		"tmpDirectory": "${CS_MAILIN_SANDBOX}/tmp"
 	},
 	"outboundEmailServer": {
+		"internalHost": null,
 		"logger": {
 			"consoleOk": true,
 			"debugOk": false,
@@ -122,7 +121,7 @@
 	},
 	"queuingEngine": {
 		"rabbitmq": {
-			"host": "host.docker.internal",
+			"host": null,
 			"outboundEmailQueueName": "outboundEmail",
 			"password": "stream",
 			"port": 5672,
@@ -149,7 +148,7 @@
 	},
 	"storage": {
 		"mongo": {
-			"url": "mongodb://localhost/codestream"
+			"url": null
 		}
 	},
 	"telemetry": {

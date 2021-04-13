@@ -252,7 +252,7 @@ module.exports = function customConfigFunc(nativeCfg) {
 		Cfg.storage.mongo.url = process.env.CSSVC_CFG_URL;
 	}
 	Object.assign(Cfg.storage.mongo, {
-		database: MongoUrlParser(nativeCfg.storage.mongo.url).database,
+		database: MongoUrlParser(Cfg.storage.mongo.url).database,
 		hintsRequired: true,
 		// we write a separate log file for mongo queries, and for slow
 		// and "really slow" queries so we can look for problems

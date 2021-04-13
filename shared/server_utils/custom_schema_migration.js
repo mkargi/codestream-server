@@ -2,30 +2,10 @@
 const getProductType = require('./get_onprem_support_data').getProductType;
 const mongoUrlParser = require('./mongo/mongo_url_parser');
 const mongoUrlAssembler = require('./mongo/mongo_url_assembler');
+const determineInternalHost = require('./internal_host_names');
 
 var OnPremProductType;
-if (!OnPremProductType) OnPremProductType = getProductType();
-
-const determineInternalHost = (onPremProductType, service) => {
-	// on docker-compose bridge networks, container names serve as hostnames
-	const internalNetworkHostNames = {
-		api: 'csapi',
-		broadcaster: 'csbcast',
-		mailout: 'csmailout',
-		mongo: 'csmongo',
-		rabbitmq: 'csrabbitmq',
-		admin: 'csadmin',
-	};
-	return onPremProductType === 'Single Linux Host'
-		? 'localhost'
-		: onPremProductType === 'Single Mac Host'
-		? 'host.docker.internal'
-		: onPremProductType === 'Docker Compose'
-		? internalNetworkHostNames[service]
-		: // onPremProductType === 'On-Prem Development'
-		  'localhost';
-};
-
+if (!OnPremProductType) OnPremProductType = getProductType().productType;
 
 const removeAssetEnvironment = (cfg) => {
 	// assetEnvironment is no longer a config property
@@ -73,12 +53,12 @@ const from18To19 = (nativeCfg) => {
 	if ('codestreamBroadcaster' in nativeCfg.broadcastEngine) {
 		if ('altApiHost' in nativeCfg.broadcastEngine.codestreamBroadcaster)
 			delete nativeCfg.broadcastEngine.codestreamBroadcaster.altApiHost;
-		if (!nativeCfg.broadcastEngine.codestreamBroadcasterinternalHost)
+		if (!nativeCfg.broadcastEngine.codestreamBroadcaster.internalHost)
 			nativeCfg.broadcastEngine.codestreamBroadcaster.internalHost = determineInternalHost(OnPremProductType, 'broadcaster');
 	}
-	if (nativeCfg.emailDeliveryService && nativeCfg.emailDeliveryService.NodeMailer) {
-		if (!nativeCfg.emailDeliveryService.NodeMailer.internalHost)
-			nativeCfg.emailDeliveryService.NodeMailer.internalHost = determineInternalHost(OnPremProductType, 'mailout');
+	if (nativeCfg.outboundEmailServer) {
+		if (!nativeCfg.outboundEmailServer.internalHost)
+			nativeCfg.outboundEmailServer.internalHost = determineInternalHost(OnPremProductType, 'mailout');
 	}
 	if (nativeCfg.adminServer && !nativeCfg.adminServer.internalHost) {
 		nativeCfg.adminServer.internalHost = determineInternalHost(OnPremProductType, 'admin');

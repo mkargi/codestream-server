@@ -33,12 +33,16 @@ function getProductType() {
 	let onPremInstallationDirectory = process.env.OPADM_ONPREM_INSTALL_DIR || '/opt/config'
 	let productType = process.env.CSSVC_PRODUCT_TYPE || null;
 
+	// FIXME: how do we get installation directory info to the containers?
+	if (process.env.CSSVC_PRODUCT_TYPE)
+		return { onPremInstallationDirectory: null, productType: process.env.CSSVC_PRODUCT_TYPE };
+
 	// FIXME: uncomment when we're not worried about legacy installations WRT this var.
 	// if (!productType) {
 	// 	console.error('FATAL: product type (CSSVC_PRODUCT_TYPE) required');
 	// 	process.exit(1);
 	// }
-	if (productType && !OnPremProductTypes.indoxOf(productType)) {
+	if (productType && !OnPremProductTypes.indexOf(productType)) {
 		console.error(`FATAL: product type ${productType} is not supported`);
 		process.exit(1);
 	}

@@ -10,10 +10,9 @@
 //
 // - environments:
 // -    minimal (default): onprem template that includes ssl and outbound email
-// -    quickstart:        onprem template without ssl or email
 // -    local:             local development template (codestream sandbox)
 // -    open-development:  open core development (new database default)
-// -    onprem-slh-quickstart:  default onprem quickstart for Single Linux Host
+// -    onprem-quickstart:  default onprem quickstart for all product types
 
 {
 	"adminServer": {
@@ -85,7 +84,6 @@
 		"NodeMailer": {
 			"disabled": true,
 			"host": null,
-			"internalHost": "localhost",
 			"password": null,
 			"port": 587,
 			"secure": true,
@@ -107,6 +105,7 @@
 		"tmpDirectory": "${CS_MAILIN_SANDBOX}/tmp"
 	},
 	"outboundEmailServer": {
+		"internalHost": "localhost",
 		"logger": {
 			"consoleOk": true,
 			"debugOk": false,

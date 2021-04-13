@@ -10,16 +10,16 @@
 //
 // - environments:
 // -    minimal (default): onprem template that includes ssl and outbound email
-// -    quickstart:        onprem template without ssl or email
 // -    local:             local development template (codestream sandbox)
 // -    open-development:  open core development (new database default)
-// -    onprem-slh-quickstart:  default onprem quickstart for Single Linux Host
+// -    onprem-quickstart:  default onprem quickstart for all product types
 
 {
 	"adminServer": {
 		"defaultEnv": {},
-		"onprem-slh-quickstart": {
+		"onprem-quickstart": {
 			"ignoreHttps": true,
+			"internalHost": null,
 			"port": 8080
 		},
 		"open-development": {
@@ -53,13 +53,14 @@
 			"publicApiUrl": "http://localhost.codestream.us:12079",
 			"showConfig": true
 		},
-		"onprem-slh-quickstart": {
+		"onprem-quickstart": {
 			"authOrigin": null,
 			"callbackEnvironment": null,
 			"confirmationNotRequired": true,
 			"disablePhoneHome": false,
 			"dontWantAWS": true,
 			"ignoreHttps": true,
+			"internalHost": null,
 			"logger": {
 				"directory": "${CS_API_LOGS}"
 			},
@@ -80,22 +81,6 @@
 			"port": 12000,
 			"publicApiUrl": "http://localhost:12000",
 			"showConfig": true
-		},
-		"quickstart": {
-			"authOrigin": null,
-			"callbackEnvironment": "onprem",
-			"confirmationNotRequired": true,
-			"disablePhoneHome": false,
-			"dontWantAWS": true,
-			"ignoreHttps": true,
-			"logger": {
-				"directory": "${CS_API_LOGS}"
-			},
-			"marketingSiteUrl": "https://www.codestream.com",
-			"phoneHomeUrl": "https://phone-home.codestream.com",
-			"port": 80,
-			"publicApiUrl": "http://{{FQHN}}",
-			"tmpDirectory": "${CS_API_TMP}"
 		}
 	},
 	"broadcastEngine": {
@@ -121,8 +106,9 @@
 				},
 				"showConfig": true
 			},
-			"onprem-slh-quickstart": {
+			"onprem-quickstart": {
 				"host": null,
+				"internalHost": null,
 				"logger": {
 					"directory": "${CS_BROADCASTER_LOGS}"
 				},
@@ -141,18 +127,6 @@
 					"auth": "broadcastAuthSecret"
 				},
 				"showConfig": false
-			},
-			"quickstart": {
-				"host": "{{FQHN}}",
-				"ignoreHttps": true,
-				"logger": {
-					"directory": "${CS_BROADCASTER_LOGS}"
-				},
-				"port": 12080,
-				"secrets": {
-					"api": "{{SECRET_BROADCAST_API}}",
-					"auth": "{{SECRET_BROADCAST_AUTH}}"
-				}
 			}
 		}
 	},
@@ -167,7 +141,7 @@
 		"local": {
 			"suppressEmails": true
 		},
-		"onprem-slh-quickstart": {
+		"onprem-quickstart": {
 			"emailTo": null,
 			"replyToDomain": null,
 			"senderEmail": null,
@@ -179,19 +153,12 @@
 			"replyToDomain": null,
 			"senderEmail": null,
 			"supportEmail": null
-		},
-		"quickstart": {
-			"emailTo": null,
-			"replyToDomain": "{{FQHN}}",
-			"senderEmail": "{{SENDER_EMAIL}}",
-			"supportEmail": "{{SUPPORT_EMAIL}}",
-			"suppressEmails": true
 		}
 	},
 	"emailDeliveryService": {
 		"NodeMailer": {
 			"defaultEnv": {},
-			"onprem-slh-quickstart": {
+			"onprem-quickstart": {
 				"disabled": true
 			},
 			"open-development": {
@@ -212,6 +179,14 @@
 		},
 		"local": {
 			"showConfig": true
+		},
+		"onprem-quickstart": {
+			"internalHost": null,
+			"logger": {
+				"directory": "${CS_OUTBOUND_EMAIL_LOGS}"
+			},
+			"showConfig": false,
+			"tmpDirectory": "${CS_OUTBOUND_EMAIL_TMP}"
 		}
 	},
 	"queuingEngine": {
@@ -222,8 +197,8 @@
 			"local": {
 				"host": "localhost.codestream.us"
 			},
-			"onprem-slh-quickstart": {
-				"host": "localhost"
+			"onprem-quickstart": {
+				"host": null
 			},
 			"open-development": {
 				"host": "localhost"
@@ -239,7 +214,7 @@
 			"installationId": "00000000-0000-0000-0000-000000000000",
 			"runTimeEnvironment": "onprem"
 		},
-		"onprem-slh-quickstart": {
+		"onprem-quickstart": {
 			"installationId": null,
 			"runTimeEnvironment": "onprem"
 		},
@@ -260,7 +235,7 @@
 		"local": {
 			"_loadSecretsFile": "codestream/dev-secrets.cfg"
 		},
-		"onprem-slh-quickstart": {
+		"onprem-quickstart": {
 			"auth": null,
 			"confirmationCheat": null,
 			"cookie": null,
@@ -290,19 +265,13 @@
 			"keyfile": null,
 			"requireStrictSSL": false
 		},
-		"onprem-slh-quickstart": {
+		"onprem-quickstart": {
 			"cafile": null,
 			"certfile": null,
 			"keyfile": null,
 			"requireStrictSSL": false
 		},
 		"open-development": {
-			"cafile": null,
-			"certfile": null,
-			"keyfile": null,
-			"requireStrictSSL": false
-		},
-		"quickstart": {
 			"cafile": null,
 			"certfile": null,
 			"keyfile": null,
@@ -317,8 +286,8 @@
 			"local": {
 				"url": "mongodb://localhost.codestream.us/codestream"
 			},
-			"onprem-slh-quickstart": {
-				"url": "mongodb://localhost/codestream"
+			"onprem-quickstart": {
+				"url": null
 			},
 			"open-development": {
 				"url": "mongodb://localhost/codestream"

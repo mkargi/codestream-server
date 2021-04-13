@@ -72,7 +72,7 @@ do
 done
 
 echo -e "\n---- create default configs deployed with the api repo"
-for csEnv in open-development onprem-slh-quickstart
+for csEnv in open-development onprem-quickstart
 do
 	[ -n "$verbose" ] && echo === $binDir/process-profile --env $csEnv --profile $codestream_configs/profiles/onprem-single-host-preview-template.json --out $codestream_server/api_server/etc/configs/$csEnv.json.x
 	$binDir/process-profile --env $csEnv --profile $codestream_configs/profiles/onprem-single-host-preview-template.json --out $codestream_server/api_server/etc/configs/$csEnv.json.x || exit 1

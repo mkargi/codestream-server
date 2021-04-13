@@ -14,6 +14,11 @@ const RandomString = require('randomstring');
 const Fs = require('fs');
 const Url = require('url');
 const Interpolate = require('./interpolate');
+const getProductType = require('./get_onprem_support_data').getProductType;
+const determineInternalHost = require('./internal_host_names');
+
+var OnPremProductType;
+if (!OnPremProductType) OnPremProductType = getProductType().productType;
 
 function getRandomIntBetween(min, max) {
 	min = Math.ceil(min);
@@ -48,7 +53,7 @@ function getPortFromUrl(url) {
 // this hook is called when a structured configuration file is loaded into the
 // database for the very first time.
 const firstConfigInstallationHook = (nativeCfg) => {
-	console.log('inside firstConfigInstallationHook');
+	console.log(`inside firstConfigInstallationHook for product type ${OnPremProductType}`);
 
 	// installation id
 	if (!nativeCfg.sharedGeneral.installationId) nativeCfg.sharedGeneral.installationId = UUID();
@@ -114,6 +119,46 @@ const firstConfigInstallationHook = (nativeCfg) => {
 			}
 		}
 	}
+
+	if (nativeCfg.adminServer && !nativeCfg.adminServer.internalHost)
+		nativeCfg.adminServer.internalHost = determineInternalHost(OnPremProductType, 'admin');
+	console.log(`adminServer.internalHost = ${nativeCfg.adminServer.internalHost}`);
+
+	if (!nativeCfg.apiServer.internalHost)
+		nativeCfg.apiServer.internalHost = determineInternalHost(OnPremProductType, 'api');
+	console.log(`apiServer.internalHost = ${nativeCfg.apiServer.internalHost}`);
+
+	if ('codestreamBroadcaster' in nativeCfg.broadcastEngine) {
+		if (!nativeCfg.broadcastEngine.codestreamBroadcaster.internalHost)
+			nativeCfg.broadcastEngine.codestreamBroadcaster.internalHost = determineInternalHost(
+				OnPremProductType,
+				'broadcaster'
+			);
+		console.log(`codestreamBroadcaster.internalHost = ${nativeCfg.broadcastEngine.codestreamBroadcaster.internalHost}`);
+	}
+
+	if (nativeCfg.outboundEmailServer) {
+		if (!nativeCfg.outboundEmailServer.internalHost)
+			nativeCfg.outboundEmailServer.internalHost = determineInternalHost(
+				OnPremProductType,
+				'mailout'
+			);
+		console.log(`outboundEmailServer.internalHost = ${nativeCfg.outboundEmailServer.internalHost}`);
+	}
+
+	if (nativeCfg.queuingEngine && nativeCfg.queuingEngine.rabbitmq) {
+		if (!nativeCfg.queuingEngine.rabbitmq.host)
+			nativeCfg.queuingEngine.rabbitmq.host = determineInternalHost(OnPremProductType, 'rabbitmq');
+		console.log(`queuingEngine.rabbitmq.host = ${nativeCfg.queuingEngine.rabbitmq.host}`);
+	}
+
+	if (nativeCfg.storage.mongo && !nativeCfg.storage.mongo.url) {
+		// this variable is required for all on-prem product types. The config
+		// value doesn't really apply but setting it to the same value ensures
+		// no config alerts are raised later.
+		if (process.env.CSSVC_CFG_URL) nativeCfg.storage.mongo.url = process.env.CSSVC_CFG_URL;
+	}
+	console.log(`storage.mongo.url = ${nativeCfg.storage.mongo.url}`);
 
 	// if certificate files exist, import the actual certs and keys into the config
 	importSslKeys(nativeCfg);

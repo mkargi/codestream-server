@@ -40,7 +40,11 @@ import GlobalData from '../config/globalData';
 	GlobalData.Installation = await getOnPremSupportData(GlobalData.Logger);
 
 	// assetInfo from other services will come from the system status service watchers
-	const assetData = await getAssetData({ logger: GlobalData.Logger });
+	const assetData = await getAssetData({
+		logger: GlobalData.Logger,
+		repoRoot: '..',
+		runTimeEnvironment: AdminConfig.getPreferredConfig().sharedGeneral.runTimeEnvironment
+	});
 	if (!Object.keys(GlobalData.Installation.dockerInfo).length) {
 		GlobalData.Installation.assetInfo['onprem-admin'] = assetData.assetInfo?.fullName
 			? `${assetData.assetInfo.fullName} (${assetData.assetInfo.assetEnvironment})`

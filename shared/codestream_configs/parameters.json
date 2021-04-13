@@ -313,11 +313,6 @@
 				"desc": "smtp mailer host",
 				"required": true
 			},
-			"internalHost": {
-				"default": "localhost",
-				"desc": "hostname to receive internal requests",
-				"env": "CS_NODEMAILER_INTERNAL_HOST"
-			},
 			"password": {
 				"desc": "smtp authentication password"
 			},
@@ -631,6 +626,11 @@
 		}
 	},
 	"outboundEmailServer": {
+		"internalHost": {
+			"default": "localhost",
+			"desc": "hostname for access to outbound email service",
+			"env": "CS_OUTBOUND_EMAIL_INTERNAL_HOST"
+		},
 		"logger": {
 			"consoleOk": {
 				"default": true,
