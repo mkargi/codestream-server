@@ -49,6 +49,9 @@ const from18To19 = (nativeCfg) => {
 		if ('securePort' in nativeCfg.apiServer) delete nativeCfg.apiServer.securePort;
 		if (!nativeCfg.apiServer.internalHost)
 			nativeCfg.apiServer.internalHost = determineInternalHost(OnPremProductType, 'api');
+		if (nativeCfg.apiServer.publicApiUrl && nativeCfg.apiServer.publicApiUrl.endsWith(':')) {
+			nativeCfg.apiServer.publicApiUrl = nativeCfg.apiServer.publicApiUrl.substring(0, nativeCfg.apiServer.publicApiUrl.length - 1);
+		}
 	}
 	if ('codestreamBroadcaster' in nativeCfg.broadcastEngine) {
 		if ('altApiHost' in nativeCfg.broadcastEngine.codestreamBroadcaster)
