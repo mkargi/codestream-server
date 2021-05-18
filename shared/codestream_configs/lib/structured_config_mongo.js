@@ -40,14 +40,12 @@ class StructuredConfigMongo extends StructuredConfigBase {
 	migrateNativeConfig(nativeCfg, curVer, targetVer) {
 		let migrationVer = curVer;
 		let newConfig = Object.assign({}, nativeCfg);
-		console.log(`migration from ${curVer} to ${targetVer}`);
+		this.logger.log(`migration from ${curVer} to ${targetVer}`);
 		this.customSchemaMigrationMatrix.forEach(([from, to, migrationFunc]) => {
 			if (migrationVer < targetVer && migrationVer === from) {
 				this.logger.log(`migrating config from schema ${from} to schema ${to}`);
 				newConfig = migrationFunc(newConfig, from, to, this.logger) || newConfig;
 				migrationVer = to;
-			} else {
-				migrationVer++;
 			}
 		});
 		return newConfig;

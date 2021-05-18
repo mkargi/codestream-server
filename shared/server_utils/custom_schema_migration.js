@@ -53,6 +53,8 @@ const from18To19 = (nativeCfg) => {
 	if ('codestreamBroadcaster' in nativeCfg.broadcastEngine) {
 		if ('altApiHost' in nativeCfg.broadcastEngine.codestreamBroadcaster)
 			delete nativeCfg.broadcastEngine.codestreamBroadcaster.altApiHost;
+		if ('securePort' in nativeCfg.broadcastEngine.codestreamBroadcaster) 
+			delete nativeCfg.broadcastEngine.codestreamBroadcaster.securePort;
 		if (!nativeCfg.broadcastEngine.codestreamBroadcaster.internalHost)
 			nativeCfg.broadcastEngine.codestreamBroadcaster.internalHost = determineInternalHost(OnPremProductType, 'broadcaster');
 	}
@@ -60,8 +62,11 @@ const from18To19 = (nativeCfg) => {
 		if (!nativeCfg.outboundEmailServer.internalHost)
 			nativeCfg.outboundEmailServer.internalHost = determineInternalHost(OnPremProductType, 'mailout');
 	}
-	if (nativeCfg.adminServer && !nativeCfg.adminServer.internalHost) {
-		nativeCfg.adminServer.internalHost = determineInternalHost(OnPremProductType, 'admin');
+	if (nativeCfg.adminServer) {
+		if (!nativeCfg.adminServer.internalHost) {
+			nativeCfg.adminServer.internalHost = determineInternalHost(OnPremProductType, 'admin');
+		}
+		if ('securePort' in nativeCfg.adminServer) delete nativeCfg.adminServer.securePort;
 	}
 	if (nativeCfg.queuingEngine && nativeCfg.queuingEngine.rabbitmq) {
 		nativeCfg.queuingEngine.rabbitmq.host = determineInternalHost(OnPremProductType, 'rabbitmq');
