@@ -18,7 +18,6 @@ class CodemarkCreator extends ModelCreator {
 	constructor (options) {
 		super(options);
 		this.codemarkHelper = new CodemarkHelper({ request: this });
-		throw new Error('this is some funkiness!');
 	}
 
 	get modelClass () {
@@ -36,6 +35,7 @@ class CodemarkCreator extends ModelCreator {
 
 	// normalize post creation operation (pre-save)
 	async normalize () {
+		throw new Error('this is trouble');
 		// if we have markers, preemptively make sure they are valid, 
 		// we are strict about markers, and don't let them just get dropped if
 		// they aren't correct
