@@ -9,13 +9,13 @@ module.exports = {
 	},
 	streamId: {
 		type: 'string',
-		default: '',
+		required: true,
 		maxLength: 150,
 		description: 'The @@#stream#stream@@ this code error belongs to (if any)'
 	},
 	postId: {
 		type: 'string',
-		default: '',
+		required: true,
 		maxLength: 150,
 		description: 'The @@#post#post@@ that points to this code error (if any)'
 	},
