@@ -31,6 +31,11 @@ const TrackTokenDeprecatedTest = require('./track_token_deprecated_test');
 const TrackCodeExpiredTest = require('./track_code_expired_test');
 const TrackIncorrectCodeTest = require('./track_incorrect_code_test');
 const ReuseCodeTest = require('./reuse_code_test');
+const SubscriptionToObjectByMentionTest = require('./subscription_to_object_by_mention_test');
+const SubscriptionToObjectByCreationTest = require('./subscription_to_object_by_creation_test');
+const SubscriptionToObjectByMentionOtherTeamTest = require('./subscription_to_object_by_mention_other_team_test');
+const SubscriptionToObjectByConfirmedExternalUserTest = require('./subscription_to_object_by_confirmed_external_user_test');
+const SubscriptionToObjectByConfirmedExternalMentionTest = require('./subscription_to_object_by_confirmed_external_mention_test');
 
 class ConfirmationRequestTester {
 
@@ -53,20 +58,23 @@ class ConfirmationRequestTester {
 		// new SubscriptionTest({ which: 'stream' }).test(); // subscription to stream channels is deprecated
 		new JoinMethodTest().test();
 		new OriginTeamPropagates().test();
-		/* These tests are disabled because confirmation links are deprecated
-		new InvalidTokenTest().test();
-		new TokenExpiredTest().test();
-		new NotConfTokenTest().test();
-		new NoUidTest().test();
-		new UserNotFound().test();
-		new NoIssuanceTest().test();
-		new TokenDeprecatedTest().test();
-		new TrackTokenExpiredTest().test();
-		new TrackTokenDeprecatedTest().test();
-		*/
+		// These tests are disabled because confirmation links are deprecated
+		//new InvalidTokenTest().test();
+		//new TokenExpiredTest().test();
+		//new NotConfTokenTest().test();
+		//new NoUidTest().test();
+		//new UserNotFound().test();
+		//new NoIssuanceTest().test();
+		//new TokenDeprecatedTest().test();
+		//new TrackTokenExpiredTest().test();
+		//new TrackTokenDeprecatedTest().test();
 		new TrackCodeExpiredTest().test();
 		new TrackIncorrectCodeTest().test();
 		new ReuseCodeTest().test();
+		new SubscriptionToObjectByMentionTest().test();
+		new SubscriptionToObjectByMentionOtherTeamTest().test();
+		new SubscriptionToObjectByConfirmedExternalUserTest().test();
+		new SubscriptionToObjectByConfirmedExternalMentionTest().test();
 	}
 }
 
