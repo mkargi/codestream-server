@@ -144,6 +144,8 @@ export default async function () {
 	// parsers
 	adminServer.use(express.json());
 	adminServer.use(express.urlencoded({ extended: true }));
+	// just to get it running
+	MongoClient.isConnected = function(){return true;};
 
 	// session management
 	adminServer.use(
